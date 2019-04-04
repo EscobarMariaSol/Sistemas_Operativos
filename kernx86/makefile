@@ -5,11 +5,15 @@ ASFLAGS = $(CFLAGS)
 ASMS := $(wildcard *.S)
 SRCS := $(wildcard *.c)
 
-PROG :=$(patsubst %.S, %, $(ASMS))
+PROG := $(patsubst %.S, %, $(ASMS))
 PROG += $(patsubst %.c, %, $(SRCS))
 
+sys_%: sys_%.S
+	$(CC) $(ASFLAGS) $(CPPFLAGS) -nostartfiles  $< -o $@
 
 all: $(PROG)
+
+hello: hello.c lib/exit.c
 
 clean:
 	rm -f $(PROG) *.o core
