@@ -4,23 +4,19 @@
 
 void backtrace(void) {
 	uint8_t numfrm = 1;
-	uint32_t *FP = __builtin_frame_address(0);
-	
-	printf("#numfrm [FP] ADDR ( ARG1 ARG2 ARG3 )\n");
+	int *FP = __builtin_frame_address(0);
 	
 	while(*FP) {
-		uint32_t *ADDR = (uint32_t *) *FP;
-		void *ARG1 = (void*) *ADDR + 4;
-		void *ARG2 = (void*) *ADDR + 8;
-		void *ARG3 = (void*) *ADDR + 12;
-		printf("#%u [%p] %p (%p %p %p)\n",
-			numfrm++,
-			(void *) *FP,
-			(void *) ADDR,
-			(void *) (ARG1),
-			(void *) (ARG2),
-			(void *) (ARG3)
-			);
+		 unsigned int *ADDR = &(*FP) + 1;
+		
+		printf("#%u [%p] %p (%p %p %p)\n", 
+			numfrm++, 
+			(void *) *FP, 
+			(void *) *ADDR, 
+			(void *) *(ADDR + 1), 
+			(void *) *(ADDR + 2), 
+			(void *) *(ADDR + 3)
+		);
 		FP = (void*) * FP;
 	}
 }
