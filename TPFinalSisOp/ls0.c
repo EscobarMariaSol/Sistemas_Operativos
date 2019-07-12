@@ -16,9 +16,12 @@ void ls0(){
 	struct dirent *directorioLeido = readdir(directorioAbierto);
 
 	while(directorioLeido != NULL){
-		printf("%s\n",directorioLeido->d_name);
+		if(directorioLeido->d_name[0] != '.'){
+			printf("%s\n",directorioLeido->d_name);
+		}
 		directorioLeido = readdir(directorioAbierto);
 	}
+	closedir(directorioAbierto);
 	/*if(error = closedir(directorioLeido) == -1){
 		panic("Error al cerrar directorio");
 	}*/
