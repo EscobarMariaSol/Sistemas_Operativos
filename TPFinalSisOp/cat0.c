@@ -11,22 +11,29 @@ void cat0(const char *file) {
 	struct stat statbuf;
 	stat(file, &statbuf);
 	
+	// Chequeo si es un directorio
+	if (S_ISDIR(statbuf.st_mode)) {
+		printf("cat0: Error, %s es un directorio.\n", file);
+		return;
+	}
+	
 	// Chequeo si es un archivo regular.
-	if (!S_ISREG(statbuf.st_mode))
-		printf("cat0: Error, archivo no regular.\n");
-	
-	int fd;
-	
-	if ((fd = open(file, O_RDONLY)) < 0)
-		printf("cat0: Error, no se pudo abrir el archivo.\n");
+	else if (S_ISREG(statbuf.st_mode)) {
 		
-	char c;
+		int fd;
 	
-	while(read(fd, &c, sizeof(c)!=0))
-		printf("%c",c);
+		if ((fd = open(file, O_RDONLY)) < 0) {
+			printf("cat0: Error, no se pudo abrir el archivo %s.\n", file);
+			return; 
+		}
 	
-	close(fd);
+		char c;
 	
+		while(read(fd, &c, sizeof(c)!=0))
+			printf("%c",c);
+		
+		close(fd);
+	}
 }
 
 int main(int argc, char *argv[]) {
