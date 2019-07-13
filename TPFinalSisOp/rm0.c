@@ -26,8 +26,10 @@ void rm0(const char *file) {
 
 int main(int argc, char *argv[]) {
 	
-	if (argc != 2)
+	if (argc != 2) {
 		printf("rm0: Error, ingresar el nombre de un único archivo.\n");
+		return 1;
+	}
 	
     rm0(argv[1]);
     return 0;

@@ -2,10 +2,8 @@
 
 #include <unistd.h>
 #include <fcntl.h>
-#include <sys/stat.h>
 #include <stdio.h>
 
-// Pre-condición el archivo existe y se tiene permiso de lectura
 void touch0(const char *file) {
 	int fd;
 	
@@ -19,8 +17,10 @@ void touch0(const char *file) {
 
 int main(int argc, char *argv[]) {
 	
-	if (argc != 2)
+	if (argc != 2){
 		printf("touch0: Error, ingresar el nombre de un único archivo.\n");
+		return 1;
+	}
 	
     touch0(argv[1]);
     return 0;

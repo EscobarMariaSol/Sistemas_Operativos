@@ -23,10 +23,11 @@ void stat0(const char *file) {
 	printf("Type: %s\n", tipoArchivo);
 }
 
-int main(char *argv[]){
-	if(argv == NULL){
-		printf("stat0: Error, no ha insertado nombre de archivo.\n");
+int main(int argc, char *argv[]){
+	if(argc!=2 ){
+		printf("stat0: Error, ingrese un único archivo.\n");
+		return 1;
 	}
-	stat0((const char *)argv);
+	stat0(argv[1]);
 	return 0;
 }
