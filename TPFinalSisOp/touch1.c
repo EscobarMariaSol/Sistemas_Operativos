@@ -4,8 +4,10 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <stdio.h>
+#include <utime.h>
 
-void touch0(const char *file) {
+void touch1(const char *file) {
+	
 	struct stat statbuf;
 	stat(file, &statbuf);
 	
@@ -14,22 +16,26 @@ void touch0(const char *file) {
 		int fd;
 	
 		if ((fd = open(file, O_CREAT|O_WRONLY|O_TRUNC)) < 0) {
-			printf("touch0: Error al abrir el archivo %s.\n", file);
+			printf("touch1: Error abriendo el archivo %s.\n", file);
 			return;
 		}
-	
 		close(fd);
 	}
+	
+	int res;
+	if((res = utime(file, NULL)) < 0)
+		printf("touch1: utime error.\n");
 }
 
 int main(int argc, char *argv[]) {
 	
 	if (argc != 2){
-		printf("touch0: Error, ingresar el nombre de un único archivo.\n");
+		printf("touch1: Error, ingresar el nombre de un único archivo.\n");
 		return 1;
 	}
 	
-    touch0(argv[1]);
+    touch1(argv[1]);
     return 0;
     
 }
+
