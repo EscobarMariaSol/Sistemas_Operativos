@@ -20,12 +20,18 @@ void cp1(const char *src){
 			printf("cp0: Error, no se pudo crear el archivo %s.\n", "Copia.txt");
 			return;
 		}
+		ftruncate(fd2, statbuf.st_size);
 		char *source = mmap(NULL, statbuf.st_size, PROT_READ, MAP_SHARED, fd1, 0);
 		char *dest = mmap(NULL, statbuf.st_size, PROT_WRITE, MAP_SHARED, fd2, 0);
 
-		memcpy((void *)dest, (const void *)source, sizeof(*source));
+		//memcpy((void *)dest, (const void *)source, statbuf.st_size);
+
+		munmap(source, statbuf.st_size);
+		munmap(dest, statbuf.st_size);
+
+		close(fd1);
+		close(fd2);
 	}
-	printf("Hasta acá no hay error\n");
 }
 
 int main(int argc, char *argv[]){
