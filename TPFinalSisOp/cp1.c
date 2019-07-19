@@ -22,12 +22,7 @@ void cp1(const char *src, const char *dst){
 			printf("cp1: Error creando el archivo %s.\n", dst);
 			return;
 		}
-		
-		if (lseek (fd2, statbuf.st_size, SEEK_SET) < 0) {
-			printf ("cp1: Error, creando el nuevo archivo.\n");
-			return;
-		}
-		write (fd2, "", 1);
+		ftruncate(fd2, statbuf.st_size);
 		char *source = mmap(NULL, statbuf.st_size, PROT_READ, MAP_SHARED, fd1, 0);
 
 		char *dest = mmap(NULL, statbuf.st_size, PROT_READ|PROT_WRITE, MAP_SHARED, fd2, 0);
