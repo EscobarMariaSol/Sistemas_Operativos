@@ -13,14 +13,15 @@ void rm0(const char *file) {
 	
 	// Por pre-condición el archivo existe y es regular,
 	// entonces sólo chequeo que no sea un directorio.
-	if (S_ISDIR(statbuf.st_mode))
+	if (S_ISDIR(statbuf.st_mode)){
 		printf("rmo0: Error, se está intentando eliminar un  directorio.\n");
 		return;
+	}
 		
 	int res;
 		
-	if ((res = unlink(file)))
-		printf("rm0: unlink error, %d.\n", res);
+	if ((res = unlink(file)) < 0)
+		printf("rm0: Error eliminando el archivo %s.\n", file);
 
 }
 

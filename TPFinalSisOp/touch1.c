@@ -15,7 +15,7 @@ void touch1(const char *file) {
 	if (!S_ISDIR(statbuf.st_mode)) {
 		int fd;
 	
-		if ((fd = open(file, O_CREAT|O_WRONLY|O_TRUNC)) < 0) {
+		if ((fd = open(file, O_CREAT|O_RDWR)) < 0) {
 			printf("touch1: Error abriendo el archivo %s.\n", file);
 			return;
 		}
