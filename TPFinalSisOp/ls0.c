@@ -1,3 +1,5 @@
+#define _POSIX_C_SOURCE 200809L
+
 #include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -8,8 +10,6 @@
 void ls0(){
 	char nombreDirectorio[1024];
 	getcwd(nombreDirectorio, 1024);
-
-	int error;
 
 	DIR *directorioAbierto = opendir((const char*)nombreDirectorio);
 
@@ -22,9 +22,6 @@ void ls0(){
 		directorioLeido = readdir(directorioAbierto);
 	}
 	closedir(directorioAbierto);
-	/*if(error = closedir(directorioLeido) == -1){
-		panic("Error al cerrar directorio");
-	}*/
 }
 
 int main(){

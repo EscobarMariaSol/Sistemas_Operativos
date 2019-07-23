@@ -1,10 +1,11 @@
+#define _POSIX_C_SOURCE 200809L
+
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <string.h>
-#include <sys/types.h>
 
 // Pre-condición, el archivo a copiar existe y es regular, el archivo destino no existe
 void cp1(const char *src, const char *dst){
